@@ -57,4 +57,32 @@ describe('NFT', () => {
           expect(await nft.owner()).to.equal(deployer.address)
         })
       })
+
+
+    describe('Minting', () => {
+      let transaction, result
+
+    const ALLOW_MINTING_ON = Date.now().toString().slice(0, 10)
+ 
+      beforeEach(async () => {
+        const NFT = await ethers.getContractFactory('NFT')
+        nft = await NFT.deploy(NAME, SYMBOL, COST, MAX_SUPPLY, ALLOW_MINTING_ON, BASE_URI)
+
+        transaction = await nft.connect(minter).mint()
+      })
+      describe('Success', async () => {
+  
+        it('updates the total supply', async () => {
+          expect(await nft.totalSupply()).to.equal(1)
+        })
+      })
+      describe('Failure', async () => {
+ 
+        it('', async () => {
+
+        })
+      })
+
+ 
+    })
 })
